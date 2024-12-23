@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import Navbar from "../../../pages/Landing/Navbar";
+import Navbar from "@/pages/Landing/Navbar";
 
 function DefaultLayout({ children }) {
   return (

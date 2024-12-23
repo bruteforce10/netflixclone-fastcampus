@@ -1,11 +1,11 @@
-import DefaultLayout from "../../components/Layouts/DefaultLayout";
-import Footer from "../../components/Modules/Footer";
-import Jumbotron from "../../components/Modules/Jumbotron";
-import SectionDownload from "../../components/Modules/SectionContents/SectionDownload";
-import SectionEnjoy from "../../components/Modules/SectionContents/SectionEnjoy";
-import SectionFAQ from "../../components/Modules/SectionContents/SectionFAQ";
-import SectionProfile from "../../components/Modules/SectionContents/SectionProfile";
-import SectionWatch from "../../components/Modules/SectionContents/SectionWatch";
+import DefaultLayout from "@layouts/DefaultLayout";
+import Footer from "@mods/LandingPage/Footer";
+import SectionDownload from "@mods/LandingPage/SectionContents/SectionDownload";
+import SectionEnjoy from "@mods/LandingPage/SectionContents/SectionEnjoy";
+import SectionFAQ from "@mods/LandingPage/SectionContents/SectionFAQ";
+import SectionProfile from "@mods/LandingPage/SectionContents/SectionProfile";
+import SectionWatch from "@mods/LandingPage/SectionContents/SectionWatch";
+import Jumbotron from "@mods/LandingPage/Jumbotron";
 
 function Landing() {
   return (

@@ -1,15 +1,16 @@
+import EachUtils from "@/utils/eachUtils";
+import InputMembership from "@/components/Modules/LandingPage/InputMembership";
+
 import { useAtom } from "jotai";
-import { languageAtom } from "../../../jotai/atoms";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   FAQ_TITLE_EN,
   FAQ_TITLE_ID,
   LIST_FAQ_EN,
   LIST_FAQ_ID,
-} from "../../../constants/listFAQ";
-import EachUtils from "../../../utils/eachUtils";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import InputMembership from "../InputMembership";
+} from "@/constants/listFAQ";
+import { languageAtom } from "@/jotai/atoms";
 
 const SectionFAQ = () => {
   const [language] = useAtom(languageAtom);

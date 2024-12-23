@@ -1,15 +1,10 @@
+import SectionLayout from "@/components/Layouts/SectionLayout";
+
 import { useAtom } from "jotai";
-import {
-  WATCH_DEVICE_IMAGE,
-  WATCH_DEVICE_VIDEO,
-} from "../../../constants/listAsset";
-import {
-  LIST_CONTENT_3_EN,
-  LIST_CONTENT_3_ID,
-} from "../../../constants/listContent";
-import EachUtils from "../../../utils/eachUtils";
-import SectionLayout from "../../Layouts/SectionLayout";
-import { languageAtom } from "../../../jotai/atoms";
+import { WATCH_DEVICE_IMAGE, WATCH_DEVICE_VIDEO } from "@/constants/listAsset";
+import { LIST_CONTENT_3_EN, LIST_CONTENT_3_ID } from "@/constants/listContent";
+import { languageAtom } from "@/jotai/atoms";
+import EachUtils from "@/utils/eachUtils";
 
 const SectionWatch = () => {
   const [language] = useAtom(languageAtom);

@@ -1,5 +1,5 @@
-import DefaultButton from "../../components/Modules/DefaultButton";
-import OptionLanguage from "../../components/Modules/optionLanguage";
+import DefaultButton from "@/components/Modules/LandingPage/DefaultButton";
+import OptionLanguage from "@/components/Modules/LandingPage/optionLanguage";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {

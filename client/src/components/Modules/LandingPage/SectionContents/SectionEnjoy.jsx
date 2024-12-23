@@ -1,12 +1,10 @@
+import EachUtils from "@/utils/eachUtils";
+import SectionLayout from "@/components/Layouts/SectionLayout";
+
 import { useAtom } from "jotai";
-import { ENJOY_TV_IMAGE, ENJOY_TV_VIDEO } from "../../../constants/listAsset";
-import {
-  LIST_CONTENT_1_EN,
-  LIST_CONTENT_1_ID,
-} from "../../../constants/listContent";
-import { languageAtom } from "../../../jotai/atoms";
-import EachUtils from "../../../utils/eachUtils";
-import SectionLayout from "../../Layouts/SectionLayout";
+import { ENJOY_TV_IMAGE, ENJOY_TV_VIDEO } from "@/constants/listAsset";
+import { LIST_CONTENT_1_EN, LIST_CONTENT_1_ID } from "@/constants/listContent";
+import { languageAtom } from "@/jotai/atoms";
 
 const SectionEnjoy = () => {
   const [language] = useAtom(languageAtom);

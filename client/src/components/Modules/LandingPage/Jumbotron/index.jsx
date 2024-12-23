@@ -1,12 +1,13 @@
+import EachUtils from "@/utils/eachUtils";
+
 import { useAtom } from "jotai";
-import { JUMBOTRON_IMAGE } from "../../../constants/listAsset";
-import { languageAtom } from "../../../jotai/atoms";
-import EachUtils from "../../../utils/eachUtils";
 import {
   LIST_JUMBOTRON_EN,
   LIST_JUMBOTRON_ID,
-} from "../../../constants/listJumbotron";
-import InputMembership from "../InputMembership";
+} from "@/constants/listJumbotron";
+import { languageAtom } from "@/jotai/atoms";
+import { JUMBOTRON_IMAGE } from "@/constants/listAsset";
+import InputMembership from "@mods/LandingPage/InputMembership";
 
 const Jumbotron = () => {
   const [language] = useAtom(languageAtom);

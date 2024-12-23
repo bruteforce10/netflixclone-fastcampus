@@ -1,15 +1,13 @@
+import SectionLayout from "@/components/Layouts/SectionLayout";
+import EachUtils from "@/utils/eachUtils";
+
 import { useAtom } from "jotai";
+import { LIST_CONTENT_2_EN, LIST_CONTENT_2_ID } from "@/constants/listContent";
+import { languageAtom } from "@/jotai/atoms";
 import {
   DOWNLOAD_COVER_IMAGE,
   DOWNLOAD_PHONE_IMAGE,
-} from "../../../constants/listAsset";
-import {
-  LIST_CONTENT_2_EN,
-  LIST_CONTENT_2_ID,
-} from "../../../constants/listContent";
-import { languageAtom } from "../../../jotai/atoms";
-import EachUtils from "../../../utils/eachUtils";
-import SectionLayout from "../../Layouts/SectionLayout";
+} from "@/constants/listAsset";
 
 const SectionDownload = () => {
   const [language] = useAtom(languageAtom);

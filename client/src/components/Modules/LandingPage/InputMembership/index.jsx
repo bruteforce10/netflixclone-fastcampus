@@ -1,8 +1,9 @@
+import EachUtils from "@/utils/eachUtils";
+import DefaultButton from "@/components/Modules/LandingPage/DefaultButton";
+
 import { useAtom } from "jotai";
-import { languageAtom } from "../../../jotai/atoms";
-import EachUtils from "../../../utils/eachUtils";
-import { LIST_CTA_EN, LIST_CTA_ID } from "../../../constants/listCTA";
-import DefaultButton from "../DefaultButton";
+import { languageAtom } from "@/jotai/atoms";
+import { LIST_CTA_EN, LIST_CTA_ID } from "@/constants/listCTA";
 
 const InputMembership = () => {
   const [language] = useAtom(languageAtom);

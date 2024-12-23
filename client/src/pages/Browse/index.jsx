@@ -1,8 +1,10 @@
+import BrowseLayout from "@/components/Layouts/BrowseLayout";
+
 const Browse = () => {
   return (
-    <div>
+    <BrowseLayout>
       <h1>Browse</h1>
-    </div>
+    </BrowseLayout>
   );
 };
 

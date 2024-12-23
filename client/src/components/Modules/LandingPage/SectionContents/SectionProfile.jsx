@@ -1,12 +1,10 @@
+import EachUtils from "@/utils/eachUtils";
+import SectionLayout from "@/components/Layouts/SectionLayout";
+
 import { useAtom } from "jotai";
-import { PROFILE_KIDS_IMAGE } from "../../../constants/listAsset";
-import {
-  LIST_CONTENT_4_EN,
-  LIST_CONTENT_4_ID,
-} from "../../../constants/listContent";
-import { languageAtom } from "../../../jotai/atoms";
-import EachUtils from "../../../utils/eachUtils";
-import SectionLayout from "../../Layouts/SectionLayout";
+import { languageAtom } from "@/jotai/atoms";
+import { PROFILE_KIDS_IMAGE } from "@/constants/listAsset";
+import { LIST_CONTENT_4_EN, LIST_CONTENT_4_ID } from "@/constants/listContent";
 
 const SectionProfile = () => {
   const [language] = useAtom(languageAtom);
