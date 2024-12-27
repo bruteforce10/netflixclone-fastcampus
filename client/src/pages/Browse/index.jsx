@@ -1,9 +1,10 @@
 import BrowseLayout from "@/components/Layouts/BrowseLayout";
+import Jumbotron from "@mods/BrowsePage/Jumbotron";
 
 const Browse = () => {
   return (
     <BrowseLayout>
-      <h1>Browse</h1>
+      <Jumbotron />
     </BrowseLayout>
   );
 };
