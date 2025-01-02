@@ -7,7 +7,7 @@ const Jumbotron = () => {
   const [isMute, setIsMute] = useState(true);
 
   return (
-    <div className="bg-red-500 absolute top-0 left-0 h-[60vw] w-full">
+    <div className="bg-red-500 relative h-[60vw] w-full">
       <ReactPlayer
         url={JUMBOTRON_VIDEO.videoURL}
         width="100%"
