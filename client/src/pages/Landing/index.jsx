@@ -6,10 +6,12 @@ import SectionFAQ from "@mods/LandingPage/SectionContents/SectionFAQ";
 import SectionProfile from "@mods/LandingPage/SectionContents/SectionProfile";
 import SectionWatch from "@mods/LandingPage/SectionContents/SectionWatch";
 import Jumbotron from "@mods/LandingPage/Jumbotron";
+import Navbar from "@/pages/Landing/Navbar";
 
 function Landing() {
   return (
-    <DefaultLayout>
+    <>
+      <Navbar />
       <Jumbotron />
       <SectionEnjoy />
       <SectionDownload />
@@ -17,7 +19,7 @@ function Landing() {
       <SectionProfile />
       <SectionFAQ />
       <Footer />
-    </DefaultLayout>
+    </>
   );
 }
 

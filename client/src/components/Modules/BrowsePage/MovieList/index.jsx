@@ -1,22 +1,37 @@
-import { useState } from "react";
-import { LIST_VIDEOS } from "@/constants/dummyVideo";
+import { useEffect, useState } from "react";
 import EachUtils from "@/utils/eachUtils";
 import MovieCard from "../MovieCard";
 import CouroselLayout from "@/components/Layouts/CouroselLayout";
 import { useAtom } from "jotai";
-import { idMovieAtom } from "@/jotai/atoms";
+import { idMovieAtom, isFetchingAtom } from "@/jotai/atoms";
+import { getMoviesByType } from "@/utils/getMoviesByTypeFetch";
 
 /* eslint-disable react/prop-types */
-const MovieList = ({ title }) => {
+const MovieList = ({ title, moviesType }) => {
   const [isHover, setHover] = useState(false);
   const [, setIdMovie] = useAtom(idMovieAtom);
+  const [, setIsFetching] = useAtom(isFetchingAtom);
+  const [movieList, setMovieList] = useState([]);
+
+  useEffect(() => {
+    if (moviesType) {
+      getMoviesByType({ moviesType })
+        .then((res) => {
+          setIsFetching(true);
+          setMovieList(res);
+        })
+        .finally(() => {
+          setTimeout(() => setIsFetching(false), 500);
+        });
+    }
+  }, [moviesType]);
 
   return (
     <section className="px-8 py-4">
       <h3 className="text-3xl font-semibold mb-2 text-white">{title}</h3>
       <CouroselLayout>
         <EachUtils
-          of={LIST_VIDEOS}
+          of={movieList}
           render={(item, index) => (
             <div
               className="h-72 w-1/4 mt-4 carousel-item"

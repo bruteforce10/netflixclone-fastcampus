@@ -3,11 +3,21 @@ import ReactPlayer from "react-player";
 import { GoChevronDown, GoPlay, GoPlus } from "react-icons/go";
 import { motion } from "framer-motion";
 import { useAtom } from "jotai";
-import { idMovieAtom, isOpenModalAtom } from "@/jotai/atoms";
+import { idMovieAtom, isFetchingAtom, isOpenModalAtom } from "@/jotai/atoms";
+import { useEffect, useState } from "react";
+import { getVideoUrl } from "@/utils/getVideoUrl";
+import Skeleton from "./Skeleton";
+import { useNavigate } from "react-router-dom";
+import { LIST_VIDEO_RECOMMENDATION } from "@/constants/dummyVideo";
 
 const MovieCard = ({ data, isHover, setHover }) => {
   const [idMovie, setIdMovie] = useAtom(idMovieAtom);
   const [, setIsOpenModal] = useAtom(isOpenModalAtom);
+  const [videoUrl, setVideoUrl] = useState(null);
+  const [isFetching] = useAtom(isFetchingAtom);
+  const navigate = useNavigate();
+
+  if (isFetching) return <Skeleton />;
 
   return (
     <>
@@ -19,8 +29,8 @@ const MovieCard = ({ data, isHover, setHover }) => {
           className="relative shadow-md w-full cursor-pointer transition-all"
         >
           <ReactPlayer
-            url={data.videoURL}
-            playing={false}
+            url={`https://www.youtube.com/watch?v=${videoUrl}`}
+            playing={true}
             loop
             muted={true}
             width={"100%"}
@@ -31,7 +41,10 @@ const MovieCard = ({ data, isHover, setHover }) => {
             <section className="mt-1 flex justify-between">
               <div className="flex gap-2">
                 <button>
-                  <GoPlay size={32} />
+                  <GoPlay
+                    size={32}
+                    onClick={() => navigate(`/watch/${videoUrl}`)}
+                  />
                 </button>
                 <button>
                   <GoPlus size={32} />
@@ -54,10 +67,15 @@ const MovieCard = ({ data, isHover, setHover }) => {
         </motion.div>
       ) : (
         <img
-          src={data.image}
+          src={
+            data.poster_path
+              ? `${import.meta.env.VITE_BASE_URL_TMDB_IMAGE}${data.poster_path}`
+              : LIST_VIDEO_RECOMMENDATION[0].image
+          }
           onMouseEnter={() => {
             setHover(true);
             setIdMovie(data.id);
+            getVideoUrl({ movie_id: data.id }).then((res) => setVideoUrl(res));
           }}
           className="w-full max-h-48 object-cover cursor-pointer"
         />
