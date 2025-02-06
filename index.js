@@ -6,10 +6,14 @@ const { MONGO_URL, API_PORT } = process.env;
 const cors = require("cors");
 const routes = require("./route/index.router");
 const mongoose = require("mongoose");
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocs = YAML.load("./swagger.yaml");
 
 app.use(express.json());
 app.use(cors());
 const PORT = API_PORT;
+app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 mongoose.connect(MONGO_URL).catch((err) => {
   if (err) {
@@ -32,3 +36,5 @@ app.get("/", (req, res) => {
 app.listen(4002, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;
