@@ -1,13 +1,14 @@
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { JUMBOTRON_IMAGE } from "@/constants/listAsset";
 import { emailAtom, emailStorageAtom, tokenAtom } from "@/jotai/atoms";
+import { apiInstanceExpress } from "@/utils/apiInstance";
 import { auth } from "@/utils/firebase";
 import { getIdToken, signInWithEmailAndPassword } from "firebase/auth";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -15,25 +16,53 @@ const LoginPage = () => {
   const [, setEmailStorage] = useAtom(emailStorageAtom);
   const [, setToken] = useAtom(tokenAtom);
   const [password, setPassword] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const login = await signInWithEmailAndPassword(auth, email, password);
+      if (!login) return toast("User not found or password not match");
 
-      if (login) {
-        const firebaseToken = await getIdToken(login.user);
-        setToken(firebaseToken);
-        setEmailStorage(login.user.email);
+      const firebaseToken = await getIdToken(login.user);
+      if (!firebaseToken) return toast("User not found or password not match");
+      const addToken = await apiInstanceExpress.post("my-token", {
+        email,
+        token: firebaseToken,
+        password,
+      });
+      if (addToken.status !== 200)
+        return toast("User not found or password not match");
+
+      toast("Success login");
+      setToken(firebaseToken);
+      setEmailStorage(login.user.email);
+      setTimeout(() => {
+        setIsLoading(false);
         navigate("/browse");
-      }
+      }, 3000);
     } catch (error) {
-      toast(error.message);
+      setIsLoading(false);
+      toast(error.code);
     }
   };
 
   return (
     <DefaultLayout>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={"Bounce"}
+      />
       <img
         src={JUMBOTRON_IMAGE}
         className="w-full h-[100vh] object-cover opacity-70"
@@ -52,7 +81,8 @@ const LoginPage = () => {
             <input
               placeholder={"Email"}
               type="email"
-              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email ? email : ""}
               className="p-4 bg-black/50 w-full rounded-md border-white/50 border peer placeholder-transparent"
             />
             <label className="absolute top-0 left-0 text-lg pl-5 -z-10  peer-placeholder-shown:top-3.5 peer-focus:top-[1px] transition-all">
@@ -74,7 +104,8 @@ const LoginPage = () => {
           <div className="flex flex-col gap-4">
             <button
               onClick={handleLogin}
-              className="bg-red-500 py-3 w-full text-white font-bold rounded-md"
+              disabled={isLoading}
+              className="bg-red-500 py-3 w-full text-white font-bold rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               Sign In
             </button>

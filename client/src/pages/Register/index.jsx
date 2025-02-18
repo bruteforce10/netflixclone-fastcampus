@@ -5,26 +5,40 @@ import { useState } from "react";
 import { GoChevronLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { auth } from "@/utils/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import { apiInstanceExpress } from "@/utils/apiInstance";
 
 const Register = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useAtom(emailAtom);
   const [password, setPassword] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const regiter = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
       if (regiter) {
-        toast("Success register");
-        setTimeout(() => navigate("/login"), 3000);
+        await signOut(auth);
+        const addUser = apiInstanceExpress.post("sign-up", {
+          email,
+          password,
+        });
+        if (addUser.status == 201) {
+          toast("Success register");
+          setTimeout(() => {
+            setIsLoading(false);
+            navigate("/login");
+          }, 3000);
+        }
       }
     } catch (error) {
       toast(error.message);
@@ -65,7 +79,8 @@ const Register = () => {
             <input
               placeholder={"Email"}
               type="email"
-              value={email}
+              value={email ? email : ""}
+              onChange={(e) => setEmail(e.target.value)}
               className="p-4 bg-black/50 w-full rounded-md border-white/50 border peer placeholder-transparent"
             />
             <label className="absolute top-0 left-0 text-lg pl-5 -z-10  peer-placeholder-shown:top-3.5 peer-focus:top-[1px] transition-all">
@@ -87,7 +102,8 @@ const Register = () => {
           <div className="flex flex-col gap-4">
             <button
               onClick={handleRegister}
-              className="bg-red-500 py-3 w-full text-white font-bold rounded-md"
+              disabled={isLoading}
+              className="bg-red-500 py-3 w-full text-white font-bold rounded-md disabled:bg-red-400 disabled:cursor-not-allowed"
             >
               Sign Up
             </button>

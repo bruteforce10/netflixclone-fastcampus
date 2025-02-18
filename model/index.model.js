@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
   token: {
     type: String,
-    unique: true,
+    default: "",
   },
   favoriteMovies: {
     type: Array,
