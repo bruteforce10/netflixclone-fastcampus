@@ -107,7 +107,7 @@ const LoginPage = () => {
               disabled={isLoading}
               className="bg-red-500 py-3 w-full text-white font-bold rounded-md disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Sign In
+              {isLoading ? "Loading..." : "Sign In"}
             </button>
             <p>
               Not have a account?{" "}
